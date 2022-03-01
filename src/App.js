@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import * as BooksAPI from './utils/BooksAPI'
 import ListBooks from './ListBooks'
 
+
 class App extends Component {
 
   state = {
@@ -14,14 +15,15 @@ class App extends Component {
     })
   }
 
+
   updateBook = (book, shelf) => {
-    this.setState((book) => ({
-      // eslint-disable-next-line no-undef
+    this.setState((state) => ({
       books: state.books.filter((b) => b.id !== book.id)
     }))
 
-    BooksAPI.update(book, shelf)
+    BooksAPI.update(book,shelf)
   }
+
 
   render(){
     return (
