@@ -17,14 +17,23 @@ class App extends Component {
   }
 
 
-  updateBook = (book, shelf) => {
-    this.setState((state) => ({
-      books: state.books.filter((b) => b.id !== book.id)
-    }))
+/*updateBook(book, shelf) {
+    BooksAPI.update(book,shelf).then(book => {
+      this.setState(state => ({
+        books: state.books.concat([ book ])
+      }))
+    })
+  }*/
 
-    BooksAPI.update(book,shelf)
+  updateBook(book, newShelf, id) {
+    BooksAPI.update(book,newShelf).then(() => {
+      let elementsIndex = this.state.books.findIndex(element => element.id === id)
+      let newArray = [...this.state.books]
+      newArray[elementsIndex] = {...newArray[elementsIndex], shelf : newShelf}
+      this.setState({ books: newArray })
+      this.setState({shelf: newShelf})
+    })
   }
-
 
   render(){
     return (
@@ -34,17 +43,17 @@ class App extends Component {
           <h1>MyReads</h1>
         </div>
           <ListBooks
-            onChangeBooks={this.updateBook}
+            onChangeBooks={(book,newShelf, id) => this.updateBook(book,newShelf,id)}
             books={this.state.books}
             status="read"
           />
           <ListBooks
-            onChangeBooks={this.updateBook}
+            onChangeBooks={(book,newShelf, id) => this.updateBook(book,newShelf, id)}
             books={this.state.books}
             status="currentlyReading"
           />
           <ListBooks
-            onChangeBooks={this.updateBook}
+            onChangeBooks={(book,newShelf, id) => this.updateBook(book,newShelf,id)}
             books={this.state.books}
             status="wantToRead"
           />

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component  } from "react";
 import PropTypes from "prop-types";
 import "./App.css";
 import escapeRegExp from "escape-string-regexp";
@@ -6,26 +6,21 @@ import escapeRegExp from "escape-string-regexp";
 class ListBooks extends Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
-    onChangeBook: PropTypes.func.isRequired,
+    onChangeBooks: PropTypes.func.isRequired,
     status: PropTypes.string.isRequired
   };
+
 
   state = {
     query: "",
   };
 
-  updateQuery = (query) => {
-    this.setState({ query: query.trim() });
-  };
-
-  clearQuery = () => {
-    this.setState({ query: "" });
-  };
-
+ 
   render() {
-    const { books, onChangeBooks, status} = this.props;
+    const { books, status, onChangeBooks} = this.props;
     const { query } = this.state;
     let showingBooks;
+    
 
     if (query) {
       const match = new RegExp(escapeRegExp(query), "i");
@@ -33,7 +28,7 @@ class ListBooks extends Component {
     } else {
       showingBooks = books;
     }
-
+    
     console.log(showingBooks);
 
     return (
@@ -43,9 +38,11 @@ class ListBooks extends Component {
               <h2 className="bookshelf-title">{status}</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {showingBooks.filter(e => e.shelf===status).map((book) => {
+                  { 
+                    showingBooks.filter(e => e.shelf===status).map((book) => {
                     return (
                       <li key={book.id}>
+    
                         <div className="book" id={book.id}>
                           <div className="book-top">
                             <div
@@ -58,11 +55,9 @@ class ListBooks extends Component {
                             />
                             <div className="book-shelf-changer">
                               <select
-                                value={book.shelf}
-                                onChange={() =>
-                                  onChangeBooks(book.title, book.shelf)
-                                }
-                              >
+                                value={book.shelf} 
+                                onChange={() => onChangeBooks(book, book.shelf, book.id)}
+                            >
                                 <option value="move" disabled>
                                   Move to...
                                 </option>
