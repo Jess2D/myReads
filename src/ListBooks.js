@@ -7,6 +7,7 @@ class ListBooks extends Component {
   static propTypes = {
     books: PropTypes.array.isRequired,
     onChangeBook: PropTypes.func.isRequired,
+    status: PropTypes.string.isRequired
   };
 
   state = {
@@ -22,7 +23,7 @@ class ListBooks extends Component {
   };
 
   render() {
-    const { books, onChangeBooks } = this.props;
+    const { books, onChangeBooks, status} = this.props;
     const { query } = this.state;
     let showingBooks;
 
@@ -36,17 +37,13 @@ class ListBooks extends Component {
     console.log(showingBooks);
 
     return (
-      <div className="list-books">
-        <div className="list-books-title">
-          <h1>MyReads</h1>
-        </div>
         <div className="list-books-content">
           <div>
             <div className="bookshelf">
-              <h2 className="bookshelf-title">book.shelf</h2>
+              <h2 className="bookshelf-title">{status}</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {showingBooks.map((book) => {
+                  {showingBooks.filter(e => e.shelf===status).map((book) => {
                     return (
                       <li key={book.id}>
                         <div className="book" id={book.id}>
@@ -89,7 +86,6 @@ class ListBooks extends Component {
             </div>
           </div>
         </div>
-      </div>
     );
   }
 }
