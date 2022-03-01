@@ -9,8 +9,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    BooksAPI.getAll().then((contacts) => {
-      this.setState({ contacts })
+    BooksAPI.getAll().then((books) => {
+      this.setState({ books })
     })
   }
 

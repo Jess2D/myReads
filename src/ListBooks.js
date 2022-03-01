@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'; 
 import './App.css'
+import escapeRegExp from 'escape-string-regexp'
+
 
 class ListBooks extends Component {
     static propTypes = {
@@ -8,7 +10,33 @@ class ListBooks extends Component {
         onChangeBook: PropTypes.func.isRequired
       }
 
+      state = {
+        query: ''
+      }
+    
+      updateQuery = (query) => {
+        this.setState({ query: query.trim() })
+      }
+    
+      clearQuery = () => {
+        this.setState({ query: '' })
+      }
+
 render(){
+
+    const { books, onChangeBooks } = this.props
+    const { query } = this.state
+    let showingBooks
+
+    if (query) {
+      const match = new RegExp(escapeRegExp(query), 'i')
+      showingBooks = books.filter((book) => match.test(book.title))
+    } else {
+        showingBooks = books
+    }
+
+    console.log(showingBooks)
+
     return(
     
         <div className="list-books">
