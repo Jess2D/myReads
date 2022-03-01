@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import * as BooksAPI from './utils/BooksAPI'
+import ListBooks from './ListBooks'
+
 class App extends Component {
 
   state = {
@@ -23,7 +25,12 @@ class App extends Component {
 
   render(){
     return (
-      <div>Initial Apps.js</div>
+      <div className="app"> 
+          <ListBooks
+            onChangeBooks={this.updateBook}
+            books={this.state.books}
+          />
+      </div>
     )
   }
 
