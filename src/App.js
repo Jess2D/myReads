@@ -1,66 +1,17 @@
-import React, {Component} from "react";
-import * as BooksAPI from './utils/BooksAPI'
-import ListBooks from './ListBooks'
+import React from "react";
+import {Route, Routes } from "react-router-dom";
+import Home from "./Home";
 
+ function App() {
 
-class App extends Component {
+  return (
+  <div className="App">
 
-  state = {
-    books : [],
-    shelf: "",
-  
-  }
+    <Routes>
+     <Route path="/" element={<Home />}></Route>
+    </Routes>
+  </div>
+ );
+ }
 
-  componentDidMount() {
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books })
-    })
-  }
-
-
-  getRead(books){
-
-  }
-
-
-  updateBook(book, newShelf, id) {
-    BooksAPI.update(book,newShelf).then(() => {
-      let elementsIndex = this.state.books.findIndex(element => element.id === id)
-      let newArray = [...this.state.books]
-      newArray[elementsIndex] = {...newArray[elementsIndex], shelf : newShelf}
-      this.setState({books: newArray })
-      this.setState({shelf: newShelf})
-    })
-  }
-
-  render(){
-    return (
-      <div className="app"> 
-            <div className="list-books">
-        <div className="list-books-title">
-          <h1>MyReads</h1>
-        </div>
-          <ListBooks
-            onChangeBooks={(book,newShelf, id) => this.updateBook(book,newShelf,id)}
-            books={this.state.books}
-            status="read"
-          />
-          <ListBooks
-            onChangeBooks={(book,newShelf, id) => this.updateBook(book,newShelf, id)}
-            books={this.state.books}
-            status="currentlyReading"
-          />
-          <ListBooks
-            onChangeBooks={(book,newShelf, id) => this.updateBook(book,newShelf,id)}
-            books={this.state.books}
-            status="wantToRead"
-          />
-          </div>
-      </div>
-    )
-  }
-
-
-}
-
-export default App;
+ export default App;
