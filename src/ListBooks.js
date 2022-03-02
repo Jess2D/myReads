@@ -1,7 +1,6 @@
 import React, { Component  } from "react";
 import PropTypes from "prop-types";
 import "./App.css";
-import escapeRegExp from "escape-string-regexp";
 
 class ListBooks extends Component {
   static propTypes = {
@@ -10,26 +9,26 @@ class ListBooks extends Component {
     status: PropTypes.string.isRequired
   };
 
-
+ 
+  
   state = {
-    query: "",
+    value: "",
   };
 
+  handleClick = (e) => {
+    this.setState({value: e.target.value});
+    console.log(this.state.value)
+    console.log("teste")
+
+  }
+   
  
   render() {
-    const { books, status, onChangeBooks} = this.props;
-    const { query } = this.state;
-    let showingBooks;
-    
-
-    if (query) {
-      const match = new RegExp(escapeRegExp(query), "i");
-      showingBooks = books.filter((book) => match.test(book.title));
-    } else {
-      showingBooks = books;
-    }
-    
-    console.log(showingBooks);
+    let  { books, status, onChangeBooks} = this.props;
+    // eslint-disable-next-line react/no-direct-mutation-state
+    this.state.value = status
+    console.log(books);
+    console.log(this.state.value)
 
     return (
         <div className="list-books-content">
@@ -39,7 +38,7 @@ class ListBooks extends Component {
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   { 
-                    showingBooks.filter(e => e.shelf===status).map((book) => {
+                    books.filter(e => e.shelf===status).map((book) => {
                     return (
                       <li key={book.id}>
     
@@ -55,8 +54,8 @@ class ListBooks extends Component {
                             />
                             <div className="book-shelf-changer">
                               <select
-                                value={book.shelf} 
-                                onChange={() => onChangeBooks(book, book.shelf, book.id)}
+                                value={this.state.value} 
+                                onChange={() => this.handleClick}
                             >
                                 <option value="move" disabled>
                                   Move to...

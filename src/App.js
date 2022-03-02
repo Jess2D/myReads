@@ -7,7 +7,10 @@ class App extends Component {
 
   state = {
     books : [],
-    shelf: ""
+    shelf: "",
+    read:[],
+    wantToRead:[],
+    currentlyReading:[]
   }
 
   componentDidMount() {
@@ -16,21 +19,14 @@ class App extends Component {
     })
   }
 
-
-/*updateBook(book, shelf) {
-    BooksAPI.update(book,shelf).then(book => {
-      this.setState(state => ({
-        books: state.books.concat([ book ])
-      }))
-    })
-  }*/
+  
 
   updateBook(book, newShelf, id) {
     BooksAPI.update(book,newShelf).then(() => {
       let elementsIndex = this.state.books.findIndex(element => element.id === id)
       let newArray = [...this.state.books]
       newArray[elementsIndex] = {...newArray[elementsIndex], shelf : newShelf}
-      this.setState({ books: newArray })
+      this.setState({books: newArray })
       this.setState({shelf: newShelf})
     })
   }
