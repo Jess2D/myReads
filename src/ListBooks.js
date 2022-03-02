@@ -9,27 +9,24 @@ class ListBooks extends Component {
     status: PropTypes.string.isRequired
   };
 
- 
+
   
   state = {
-    value: "",
+    value: this.props.status,
   };
 
-  handleClick = (e) => {
-    this.setState({value: e.target.value});
+  handleClick = (e,book, id) => {
+   let newShelft = e.target.value
+    this.setState({value: newShelft});
     console.log(this.state.value)
-    console.log("teste")
-
+    console.log(newShelft)
+    this.props.onChangeBooks(book ,newShelft, id )
   }
-   
+
  
   render() {
-    let  { books, status, onChangeBooks} = this.props;
-    // eslint-disable-next-line react/no-direct-mutation-state
-    this.state.value = status
-    console.log(books);
-    console.log(this.state.value)
-
+    let  { books,status} = this.props;
+  
     return (
         <div className="list-books-content">
           <div>
@@ -55,7 +52,7 @@ class ListBooks extends Component {
                             <div className="book-shelf-changer">
                               <select
                                 value={this.state.value} 
-                                onChange={() => this.handleClick}
+                                onChange={(e) => this.handleClick(e,book, book.id)}
                             >
                                 <option value="move" disabled>
                                   Move to...

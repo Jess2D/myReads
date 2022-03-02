@@ -8,9 +8,7 @@ class App extends Component {
   state = {
     books : [],
     shelf: "",
-    read:[],
-    wantToRead:[],
-    currentlyReading:[]
+  
   }
 
   componentDidMount() {
@@ -19,7 +17,11 @@ class App extends Component {
     })
   }
 
-  
+
+  getRead(books){
+
+  }
+
 
   updateBook(book, newShelf, id) {
     BooksAPI.update(book,newShelf).then(() => {
