@@ -18,8 +18,6 @@ class ListBooks extends Component {
   handleClick = (e,book, id) => {
    let newShelft = e.target.value
     this.setState({value: newShelft});
-    console.log(this.state.value)
-    console.log(newShelft)
     this.props.onChangeBooks(book ,newShelft, id )
   }
 
