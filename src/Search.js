@@ -7,7 +7,7 @@ import Home from "./Home";
 
 
  const Search = () => {
-    const [term, setTerm] = useState("React");
+    const [term, setTerm] = useState("");
     const [results,setResults] = useState([])
     console.log(results)
 
@@ -15,12 +15,19 @@ import Home from "./Home";
         const search = async () => {
           BooksAPI.search(term).then((data) =>     
           setResults(data))};
-       
-        const timeoutId = setTimeout(() => {
+        if (term && !results.length) {
+            search();
+        } else {
+            const timeoutId = setTimeout(() => {
             if (term) {
-              search();
+                search();
             }
-          }, 500);
+            }, 1000);
+    
+            return () => {
+            clearTimeout(timeoutId);
+            };
+        }
         }, [term]);
    
    const renderedResults = results.map((result) => {
