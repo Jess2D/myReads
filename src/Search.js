@@ -15,10 +15,13 @@ import Home from "./Home";
         const search = async () => {
           BooksAPI.search(term).then((data) =>     
           setResults(data))};
-          if(term){
-            search();
-          }
-      }, [term]);
+       
+        const timeoutId = setTimeout(() => {
+            if (term) {
+              search();
+            }
+          }, 500);
+        }, [term]);
    
    const renderedResults = results.map((result) => {
         return (
