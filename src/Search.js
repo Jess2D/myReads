@@ -3,15 +3,19 @@ import { Link } from "react-router-dom";
 import "./App.css";
 import * as BooksAPI from "./utils/BooksAPI";
 import Home from "./Home";
+import EmptyState from "./EmptyState";
 
 const Search = () => {
   const [term, setTerm] = useState("");
   const [results, setResults] = useState([]);
+  const [shelf, setShelf] =useState("")
   console.log(results);
+
+
 
   useEffect(() => {
     const search = async () => {
-      BooksAPI.search(term).then((data) => setResults(data));
+      BooksAPI.search(term).then((data) => !!data && data.length ? setResults(data) : setResults([]));
     };
     if (term && !results.length) {
       search();
@@ -28,6 +32,14 @@ const Search = () => {
     }
   }, [term]);
 
+  const handleChange = (e, book, id) => {
+    let newShelft = e.target.value;
+    setShelf(newShelft);
+    //nChangeBooks(book, newShelft, id);
+  };
+
+
+
   const renderedResults = results.map((result) => {
     return (
       <li key={result.id} className="item">
@@ -40,6 +52,20 @@ const Search = () => {
               backgroundImage: `url("${result.imageLinks.thumbnail}")`,
             }}
           />
+         <div className="">
+             <select
+                  value={shelf}   
+                  onChange={(e) =>
+                    handleChange(e, result, result.id)
+                  }     
+                >
+                <option value="move" disabled>Move to...</option>
+                <option value="currentlyReading">Currently Reading</option>
+                <option value="wantToRead">Want to Read</option>
+                <option value="read">Read</option>
+                <option value="none">None</option>
+                </select>
+            </div>
           <div className="book-title">{result.tittle}</div>
           <div className="book-authors">{result.authors}</div>
         </div>
@@ -64,7 +90,7 @@ const Search = () => {
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid">{renderedResults}</ol>
+          <ol className="books-grid">{results.length ? renderedResults : <EmptyState />}</ol>
         </div>
       </div>
     </div>

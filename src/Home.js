@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import * as BooksAPI from "./utils/BooksAPI";
 import ListBooks from "./ListBooks";
+import Search from "./Search";
 
 class Home extends Component {
   state = {
@@ -55,7 +57,13 @@ class Home extends Component {
             status="wantToRead"
           />
         </div>
-      </div>
+        <div className="open-search">
+          <Link to="/search" onClick={Search}> 
+            <button></button> 
+            
+            </Link>
+        </div>
+      </div>   
     );
   }
 }
