@@ -33,8 +33,17 @@ import Home from "./Home";
    const renderedResults = results.map((result) => {
         return (
           <li key={result.id} className="item">
-            <div className="content">
-              <div className="header">{result.title}</div>
+            <div className="book">
+                <div
+                              className="book-cover"
+                              style={{
+                                width: 128,
+                                height: 193,
+                                backgroundImage: `url("${result.imageLinks.thumbnail}")`,
+                              }}
+                />
+             <div className="book-title">{result.tittle}</div>
+             <div className="book-authors">{result.authors}</div>
             </div>
           </li>
         );
