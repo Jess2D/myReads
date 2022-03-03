@@ -1,6 +1,8 @@
 import React, { Component  } from "react";
+import { Link } from 'react-router-dom'
 import PropTypes from "prop-types";
 import "./App.css";
+import Search from "./Search";
 
 
 class ListBooks extends Component {
@@ -74,6 +76,9 @@ class ListBooks extends Component {
                 </ol>
               </div>
             </div>
+          </div>
+          <div className="open-search">
+            <Link to='/search' onClick={Search}><button></button></Link>
           </div>
         </div>
     );
