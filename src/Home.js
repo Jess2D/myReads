@@ -17,12 +17,6 @@ class Home extends Component {
     })
   }
 
-
-  getRead(books){
-
-  }
-
-
   updateBook(book, newShelf, id) {
     BooksAPI.update(book,newShelf).then(() => {
       let elementsIndex = this.state.books.findIndex(element => element.id === id)
