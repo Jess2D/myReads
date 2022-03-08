@@ -38,6 +38,9 @@ const Search = () => {
     //nChangeBooks(book, newShelft, id);
   };
 
+  const addBookToShelf = () =>{
+      
+  }
 
 
   const renderedResults = results.map((result) => {

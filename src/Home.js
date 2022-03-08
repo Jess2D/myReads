@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import * as BooksAPI from "./utils/BooksAPI";
 import ListBooks from "./ListBooks";
-import Search from "./Search";
+import OpenSearch from "./OpenSearch"
 
 class Home extends Component {
   state = {
@@ -57,12 +56,12 @@ class Home extends Component {
             status="wantToRead"
           />
         </div>
-        <div className="open-search">
-          <Link to="/search" onClick={Search}> 
-            <button></button> 
-            
-            </Link>
-        </div>
+        <OpenSearch 
+          onChangeBooks={(book, newShelf, id) =>
+             this.updateBook(book, newShelf, id)
+            }
+          books={this.state.books}
+        /> 
       </div>   
     );
   }
