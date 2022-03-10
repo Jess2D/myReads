@@ -33,8 +33,6 @@ const Search = (props) => {
   }, [term]);
 
 
-
-
   const renderedResults = results.map((result) => {
     return (
       <li key={result.id} className="item">

@@ -1,75 +1,35 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import "./App.css";
+import Book from "./Book";
 
 
-class ListBooks extends Component {
-  static propTypes = {
-    books: PropTypes.array.isRequired,
-    onChangeBooks: PropTypes.func.isRequired,
-    status: PropTypes.string.isRequired,
-  };
+const  ListBooks = (props) =>  {
+  
 
-  state = {
-    value: this.props.status,
-  };
+ 
 
-  handleClick = (e, book, id) => {
-    let newShelft = e.target.value;
-    this.setState({ value: newShelft });
-    this.props.onChangeBooks(book, newShelft, id);
-  };
-
-  render() {
-    let { books, status } = this.props;
+  const list  = props.books.filter((book) => book.shelf === props.bookshelfTitle).map((book) => {
+        return (  
+          <li key={book.id} className="item">
+            <Book  book={book}  list={props.books}  bookshelf={props.bookshelfTitle} 
+            
+            onChangeBooks={(book, newShelf) =>
+              props.onChangeBooks(book, newShelf)
+            }
+            />
+          </li>
+        );
+      });
+    
 
     return (
       <div className="list-books-content">
         <div>
           <div className="bookshelf">
-            <h2 className="bookshelf-title">{status}</h2>
+            <h2 className="bookshelf-title">{props.bookshelfTitle}</h2>
             <div className="bookshelf-books">
               <ol className="books-grid">
-                {books
-                  .filter((e) => e.shelf === status)
-                  .map((book) => {
-                    return (
-                      <li key={book.id}>
-                        <div className="book" id={book.id}>
-                          <div className="book-top">
-                            <div
-                              className="book-cover"
-                              style={{
-                                width: 128,
-                                height: 193,
-                                backgroundImage: `url("${book.imageLinks.thumbnail}")`,
-                              }}
-                            />
-                            <div className="book-shelf-changer">
-                              <select
-                                value={this.state.value}
-                                onChange={(e) =>
-                                  this.handleClick(e, book, book.id)
-                                }
-                              >
-                                <option value="move" disabled>
-                                  Move to...
-                                </option>
-                                <option value="currentlyReading">
-                                  Currently Reading
-                                </option>
-                                <option value="wantToRead">Want to Read</option>
-                                <option value="read">Read</option>
-                                <option value="none">None</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div className="book-title">{book.tittle}</div>
-                          <div className="book-authors">{book.authors}</div>
-                        </div>
-                      </li>
-                    );
-                  })}
+                {list}
               </ol>
             </div>
           </div>
@@ -77,5 +37,5 @@ class ListBooks extends Component {
       </div>
     );
   }
-}
+
 export default ListBooks;

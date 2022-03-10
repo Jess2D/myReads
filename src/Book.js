@@ -1,18 +1,16 @@
 import React,{useState} from "react";
-import * as BooksAPI from "./utils/BooksAPI";
+
 
 const Book = (props) => {
-
-    const updateBook = (book, newShelf) => {
-        BooksAPI.update(book, newShelf)
-      }
-
-
-    const [shelf, setShelf] = useState("read")
+    const [shelf, setShelf] = useState(props.bookshelf)
+    
+    
     const handleChange = (e, book, id) => {
     let newShelft = e.target.value;
+  
+    props.onChangeBooks(book,newShelft)
     setShelf(newShelft);
-    updateBook(book, shelf); 
+    console.log(book)   
  };
     
 
@@ -42,7 +40,7 @@ return (
           </select>
       </div>
       </div>
-    <div className="book-title">{props.book.tittle}</div>
+    <div className="book-title">{props.book.title}</div>
     <div className="book-authors">{props.book.authors}</div>
   </div>  
   )

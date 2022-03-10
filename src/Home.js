@@ -15,15 +15,10 @@ class Home extends Component {
     });
   }
 
-  updateBook(book, newShelf, id) {
-    BooksAPI.update(book, newShelf).then(() => {
-      let elementsIndex = this.state.books.findIndex(
-        (element) => element.id === id
-      );
-      let newArray = [...this.state.books];
-      newArray[elementsIndex] = { ...newArray[elementsIndex], shelf: newShelf };
-      this.setState({ books: newArray });
-      this.setState({ shelf: newShelf });
+  updateBook(book, newShelf) {
+    BooksAPI.update(book, newShelf).then((books) => {
+      this.setState({ books }); 
+      BooksAPI.getAll();
     });
   }
 
@@ -35,25 +30,25 @@ class Home extends Component {
             <h1>MyReads</h1>
           </div>
           <ListBooks
-            onChangeBooks={(book, newShelf, id) =>
-              this.updateBook(book, newShelf, id)
+            onChangeBooks={(book, newShelf) =>
+              this.updateBook(book, newShelf)
             }
+            bookshelfTitle={"wantToRead"}
             books={this.state.books}
-            status="read"
           />
           <ListBooks
-            onChangeBooks={(book, newShelf, id) =>
-              this.updateBook(book, newShelf, id)
+            onChangeBooks={(book, newShelf) =>
+              this.updateBook(book, newShelf)
             }
+            bookshelfTitle={"currentlyReading"}
             books={this.state.books}
-            status="currentlyReading"
           />
           <ListBooks
-            onChangeBooks={(book, newShelf, id) =>
-              this.updateBook(book, newShelf, id)
+            onChangeBooks={(book, newShelf) =>
+              this.updateBook(book, newShelf)
             }
+            bookshelfTitle={"read"}
             books={this.state.books}
-            status="wantToRead"
           />
         </div>
         <OpenSearch /> 
