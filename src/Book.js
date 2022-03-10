@@ -7,8 +7,6 @@ const Book = (props) => {
     
     const handleChange = (e, book, id) => {
     let newShelft = e.target.value;
-  
-    props.onChangeBooks(book,newShelft)
     setShelf(newShelft);
     console.log(book)   
  };

@@ -1,60 +1,64 @@
-import React, { Component } from "react";
+import React, {useState,useEffect } from "react";
 import * as BooksAPI from "./utils/BooksAPI";
 import ListBooks from "./ListBooks";
 import OpenSearch from "./OpenSearch"
 
-class Home extends Component {
-  state = {
-    books: [],
-    shelf: "",
-  };
+const Home = () => {
 
-  componentDidMount() {
-    BooksAPI.getAll().then((books) => {
-      this.setState({ books });
-    });
-  }
 
-  updateBook(book, newShelf) {
-    BooksAPI.update(book, newShelf).then((books) => {
-      this.setState({ books }); 
-      BooksAPI.getAll();
-    });
-  }
+  const [books, setBooks] = useState([])
+  const [wantToRead, setwantToRead] = useState([])
+  const [read,setRead] = useState([])
+  const [currentlyReading, setcurrentlyReading] = useState([])
 
-  render() {
+
+
+  useEffect(() => {
+    BooksAPI.getAll()
+    .then((books) => {
+        setBooks(books) ;
+        books.map(book =>  BooksAPI.update(book, book.shelf)) 
+        console.log(books)
+
+      const listWantRead =  books.filter(book=> book.shelf ==="wantToRead")
+      setwantToRead(listWantRead)
+      
+      const listCurrentlyReading = books.filter(book => book.shelf === "currentlyReading")
+      setcurrentlyReading(listCurrentlyReading)
+      
+      const listRead = books.filter(book => book.shelf === "read")
+      setRead(listRead)
+        })
+  }, [books]);
+
+
+  
+
+
     return (
       <div className="app">
         <div className="list-books">
           <div className="list-books-title">
             <h1>MyReads</h1>
           </div>
+      
           <ListBooks
-            onChangeBooks={(book, newShelf) =>
-              this.updateBook(book, newShelf)
-            }
-            bookshelfTitle={"wantToRead"}
-            books={this.state.books}
+            bookshelfTitle={"Want to read"}
+            books={wantToRead}
           />
           <ListBooks
-            onChangeBooks={(book, newShelf) =>
-              this.updateBook(book, newShelf)
-            }
-            bookshelfTitle={"currentlyReading"}
-            books={this.state.books}
+            bookshelfTitle={"Currently Reading"}
+            books={currentlyReading}
           />
           <ListBooks
-            onChangeBooks={(book, newShelf) =>
-              this.updateBook(book, newShelf)
-            }
-            bookshelfTitle={"read"}
-            books={this.state.books}
+            bookshelfTitle={"Read"}
+            books={read}
           />
         </div>
         <OpenSearch /> 
       </div>   
     );
   }
-}
+
 
 export default Home;

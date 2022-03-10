@@ -6,9 +6,9 @@ import Book from "./Book";
 const  ListBooks = (props) =>  {
   
 
- 
+ console.log(props.books)
 
-  const list  = props.books.filter((book) => book.shelf === props.bookshelfTitle).map((book) => {
+  const list  = props.books.map(book => {
         return (  
           <li key={book.id} className="item">
             <Book  book={book}  list={props.books}  bookshelf={props.bookshelfTitle} 
