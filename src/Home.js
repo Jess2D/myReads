@@ -56,12 +56,7 @@ class Home extends Component {
             status="wantToRead"
           />
         </div>
-        <OpenSearch 
-          onChangeBooks={(book, newShelf, id) =>
-             this.updateBook(book, newShelf, id)
-            }
-          books={this.state.books}
-        /> 
+        <OpenSearch /> 
       </div>   
     );
   }
