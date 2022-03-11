@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import "./App.css";
 import * as BooksAPI from "./utils/BooksAPI";
 import Home from "./Home";
 import EmptyState from "./EmptyState";
 import Book from "./Book";
 
-const Search = (props) => {
+const Search = () => {
   const [term, setTerm] = useState("");
   const [results, setResults] = useState([]);
 
+  const location = useLocation();
+
+  useEffect(() => {
+
+    console.log(location.state)
+  }, []);
 
   useEffect(() => {
     const search = async () => {

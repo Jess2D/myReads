@@ -54,7 +54,7 @@ const Home = () => {
             allBooks={books}
           />
         </div>
-        <OpenSearch /> 
+        <OpenSearch   books={books}  /> 
       </div>   
     );
   }
