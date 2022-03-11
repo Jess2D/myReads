@@ -12,13 +12,10 @@ const Home = () => {
   const [currentlyReading, setcurrentlyReading] = useState([])
 
 
-
   useEffect(() => {
     BooksAPI.getAll()
     .then((books) => {
-        setBooks(books) ;
-        books.map(book =>  BooksAPI.update(book, book.shelf)) 
-        console.log(books)
+        setBooks(books);
 
       const listWantRead =  books.filter(book=> book.shelf ==="wantToRead")
       setwantToRead(listWantRead)
@@ -31,10 +28,6 @@ const Home = () => {
         })
   }, [books]);
 
-
-  
-
-
     return (
       <div className="app">
         <div className="list-books">
@@ -45,14 +38,20 @@ const Home = () => {
           <ListBooks
             bookshelfTitle={"Want to read"}
             books={wantToRead}
+            changeAllBooks={setBooks}
+            allBooks={books}
           />
           <ListBooks
             bookshelfTitle={"Currently Reading"}
             books={currentlyReading}
+            changeAllBooks={setBooks}
+            allBooks={books}
           />
           <ListBooks
             bookshelfTitle={"Read"}
             books={read}
+            changeAllBooks={setBooks}
+            allBooks={books}
           />
         </div>
         <OpenSearch /> 

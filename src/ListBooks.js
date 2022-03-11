@@ -4,19 +4,12 @@ import Book from "./Book";
 
 
 const  ListBooks = (props) =>  {
-  
 
- console.log(props.books)
 
   const list  = props.books.map(book => {
         return (  
           <li key={book.id} className="item">
-            <Book  book={book}  list={props.books}  bookshelf={props.bookshelfTitle} 
-            
-            onChangeBooks={(book, newShelf) =>
-              props.onChangeBooks(book, newShelf)
-            }
-            />
+            <Book  book={book}  id={book.id} list={props.allBooks}  changeAllBooks={props.changeAllBooks} />
           </li>
         );
       });

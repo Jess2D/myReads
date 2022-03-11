@@ -1,14 +1,18 @@
-import React,{useState} from "react";
+import React from "react";
+import * as BooksAPI from "./utils/BooksAPI";
+
 
 
 const Book = (props) => {
-    const [shelf, setShelf] = useState(props.bookshelf)
     
-    
+
+    const updateBook = (book, shelf) =>{
+        BooksAPI.update(book, shelf)
+      }
+
     const handleChange = (e, book, id) => {
     let newShelft = e.target.value;
-    setShelf(newShelft);
-    console.log(book)   
+    updateBook(book,newShelft)
  };
     
 
@@ -25,7 +29,7 @@ return (
     />
    <div className="book-shelf-changer">
        <select
-            value={shelf}   
+            value={props.book.shelf}   
             onChange={(e) =>
               handleChange(e,props.book, props.book.id)
             }     
