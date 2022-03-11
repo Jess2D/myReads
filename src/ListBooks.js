@@ -5,7 +5,6 @@ import Book from "./Book";
 
 const  ListBooks = (props) =>  {
 
-
   const list  = props.books.map(book => {
         return (  
           <li key={book.id} className="item">

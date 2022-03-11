@@ -2,6 +2,9 @@
 
 This is a bookshelf app that allows you to select and categorize books you have read, are currently reading, or want to read. The project emphasizes using React to build the application and provides an API server and client library that persist information as you interact with the application.
 
+## Screenshots
+![Homepage](https://github.com/Jess2D/myReads)
+
 ## Project organization
 
 ```bash
@@ -27,7 +30,7 @@ This is a bookshelf app that allows you to select and categorize books you have 
 
 ## Backend Server
 
-The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods you will need to perform necessary operations on the backend:
+The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods to perform necessary operations on the backend:
 
 - [`getAll`](#getall)
 - [`update`](#update)

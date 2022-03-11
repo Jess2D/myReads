@@ -9,8 +9,6 @@ import Book from "./Book";
 const Search = (props) => {
   const [term, setTerm] = useState("");
   const [results, setResults] = useState([]);
-  console.log(results);
-
 
 
   useEffect(() => {
