@@ -18,6 +18,7 @@ const Search = () => {
   }, []);
 
   useEffect(() => {
+
     const search = async () => {
       BooksAPI.search(term).then((data) => !!data && data.length ? setResults(data) : setResults([]));
     };
