@@ -18,10 +18,8 @@ const Search = () => {
         BooksAPI.getAll().then((books) => {
           const newResultsArray = resultsFromAPI.map((bookResult) => {
             const bookFound = books.find((book) => book.id === bookResult.id);
-            console.log("Iterate through Book Results", bookResult);
             return bookFound || bookResult;
           });
-          console.log("resultado final", newResultsArray);
           setResults(newResultsArray);
         });
 
