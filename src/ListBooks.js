@@ -5,11 +5,14 @@ import Book from "./Book";
 
 const  ListBooks = (props) =>  {
 
+  
+  console.log(props.allBooks)
 
   const list  = props.books.map(book => {
         return (  
           <li key={book.id} className="item">
-            <Book  book={book}  id={book.id} list={props.allBooks}  changeAllBooks={props.changeAllBooks} />
+          
+            <Book  book={book}  id={book.id} allBooks={props.allBooks} updateBook={props.updateBook}/>
           </li>
         );
       });

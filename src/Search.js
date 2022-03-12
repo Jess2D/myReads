@@ -13,35 +13,26 @@ const Search = () => {
   const location = useLocation();
 
   useEffect(() => {
-
-    console.log(location.state)
+    console.log(location.state);
   }, []);
 
   useEffect(() => {
-
     const search = async () => {
-      BooksAPI.search(term).then((data) => !!data && data.length ? setResults(data) : setResults([]));
+      BooksAPI.search(term).then((data) =>
+        !!data && data.length ? setResults(data) : setResults([])
+      );
     };
-    if (term && !results.length) {
+    if (term) {
       search();
     } else {
-      const timeoutId = setTimeout(() => {
-        if (term) {
-          search();
-        }
-      }, 1000);
-
-      return () => {
-        clearTimeout(timeoutId);
-      };
+      setResults([]);
     }
   }, [term]);
-
 
   const renderedResults = results.map((result) => {
     return (
       <li key={result.id} className="item">
-        <Book  book={result}  list={results} changeList={setResults}/>
+        <Book book={result} list={results} changeList={setResults} />
       </li>
     );
   });
@@ -63,7 +54,9 @@ const Search = () => {
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid">{results.length ? renderedResults : <EmptyState />}</ol>
+          <ol className="books-grid">
+            {results.length ? renderedResults : <EmptyState />}
+          </ol>
         </div>
       </div>
     </div>
