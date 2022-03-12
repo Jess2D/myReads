@@ -1,12 +1,13 @@
 import React from "react";
 
 const Book = (props) => {
+
   const handleChange = (e, book, id) => {
     let newShelft = e.target.value;
     props.updateBook(book, newShelft);
   };
-
-  return (
+ 
+return (
     <div className="book">
       <div className="book-top">
         <div

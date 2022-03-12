@@ -1,27 +1,37 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
 import "./App.css";
 import * as BooksAPI from "./utils/BooksAPI";
 import Home from "./Home";
 import EmptyState from "./EmptyState";
 import Book from "./Book";
+import { Link } from "react-router-dom";
 
 const Search = () => {
   const [term, setTerm] = useState("");
   const [results, setResults] = useState([]);
 
-  const location = useLocation();
+  const search = async () => {
+    BooksAPI.search(term).then((resultsFromAPI) => {
+      if (!!resultsFromAPI && resultsFromAPI.length) {
+        // TODO Check if books on shelf before setting results
+        // ...
+        BooksAPI.getAll().then((books) => {
+          const newResultsArray = resultsFromAPI.map((bookResult) => {
+            const bookFound = books.find((book) => book.id === bookResult.id);
+            console.log("Iterate through Book Results", bookResult);
+            return bookFound || bookResult;
+          });
+          console.log("resultado final", newResultsArray);
+          setResults(newResultsArray);
+        });
+
+      } else {
+        setResults([]);
+      }
+    });
+  };
 
   useEffect(() => {
-    console.log(location.state);
-  }, []);
-
-  useEffect(() => {
-    const search = async () => {
-      BooksAPI.search(term).then((data) =>
-        !!data && data.length ? setResults(data) : setResults([])
-      );
-    };
     if (term) {
       search();
     } else {
@@ -29,10 +39,10 @@ const Search = () => {
     }
   }, [term]);
 
-  const renderedResults = results.map((result) => {
+  const renderedResults = results.map((book) => {
     return (
-      <li key={result.id} className="item">
-        <Book book={result} list={results} changeList={setResults} />
+      <li key={book.id} className="item">
+        <Book book={book} serchedBooks={results} changeList={setResults} />
       </li>
     );
   });

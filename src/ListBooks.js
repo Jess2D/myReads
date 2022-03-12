@@ -12,7 +12,7 @@ const  ListBooks = (props) =>  {
         return (  
           <li key={book.id} className="item">
           
-            <Book  book={book}  id={book.id} allBooks={props.allBooks} updateBook={props.updateBook}/>
+            <Book  book={book}  id={book.id} updateBook={props.updateBook}/>
           </li>
         );
       });
