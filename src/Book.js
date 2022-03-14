@@ -24,7 +24,7 @@ return (
         />
         <div className="book-shelf-changer">
           <select
-            value={props.book.shelf}
+            value={props.book.shelf||"none"}
             onChange={(e) => handleChange(e, props.book, props.book.id)}
           >
             <option value="move" disabled>
