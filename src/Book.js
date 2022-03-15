@@ -1,5 +1,5 @@
 import React from "react";
-import * as BooksAPI from "./utils/BooksAPI";
+//import * as BooksAPI from "./utils/BooksAPI";
 
 
 
@@ -7,14 +7,7 @@ const Book = (props) => {
 
   const handleChange = (e, book, id) => {
     let newShelft = e.target.value;
-    BooksAPI.update(book, newShelft)
-      //.then(() => {
-      //BooksAPI.getAll().then((books) => {
-        //setBooks(books);
-     // });
-   // });
-
-   // props.updateBook(book, newShelft);
+    props.updateBook(book, newShelft);
   };
  
 return (
